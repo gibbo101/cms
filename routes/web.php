@@ -43,4 +43,7 @@ Route::get('/', function () {
 
 // Route::get('/post/{id}', [PostsController::class, 'index']);
 
-Route::resource('posts', PostsController::class);
+//Route::resource('posts', PostsController::class);
+Route::get('/contact', [PostsController::class, 'contact']);
+
+Route::get('post/{id}/{name}/{password}', [PostsController::class, 'show_post']);
