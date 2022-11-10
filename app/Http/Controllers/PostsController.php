@@ -45,7 +45,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        return "This is the show method! ". $id;
+        return "This is the show method! " . $id;
     }
 
     /**
@@ -77,6 +77,8 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function destroy($id)
     {
         //
@@ -84,7 +86,9 @@ class PostsController extends Controller
 
     public function contact()
     {
-        return view('contact');
+
+        $people = ['Edwin', 'Jose', 'Peter', 'Maria'];
+        return view('contact', compact('people'));
     }
 
     public function show_post($id, $name, $password)
@@ -93,6 +97,3 @@ class PostsController extends Controller
         return view('post', compact('id', 'name', 'password'));
     }
 }
-
-
-
