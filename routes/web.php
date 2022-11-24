@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Country;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,11 +52,11 @@ use App\Models\Post;
 
 // Route::get('post/{id}/{name}/{password}', [PostsController::class, 'show_post']);
 
-Route::get('/insert', function() {
+// Route::get('/insert', function() {
 
-    DB::insert('insert into posts(title, content) values(?, ?)', ['PHP with Laravel', 'PHP LAravel is the best thing since sliced bread']);
+//     DB::insert('insert into posts(title, content) values(?, ?)', ['PHP with Laravel', 'PHP LAravel is the best thing since sliced bread']);
 
-});
+// });
 
 // Route::get('/read', function() {
 //     $results = DB::select('select * from posts where id = ?', [1]);
@@ -125,9 +127,9 @@ Route::get('/insert', function() {
 //     $post->save();
 // });
 
-Route::get('/create', function() {
-    Post::create(['title'=>'The Create Method', 'content'=>'Wow I\'m learning a lot with Edwin']);
-});
+// Route::get('/create', function() {
+//     Post::create(['title'=>'The Create Method', 'content'=>'Wow I\'m learning a lot with Edwin']);
+// });
 
 // Route::get('/update', function() {
 //     Post::where('id', 5)->where('is_admin', 0)->update(['title'=>'NEW PHP TITLE', 'content'=>'I love my instructor']);
@@ -157,6 +159,66 @@ Route::get('/create', function() {
 //   Post::withTrashed()->where('id', 8)->restore();
 // });
 
-Route::get('/forcedelete', function() {
-  Post::onlyTrashed()->where('id', 8)->forceDelete();
+// Route::get('/forcedelete', function() {
+//   Post::onlyTrashed()->where('id', 8)->forceDelete();
+// });
+
+
+// ELOQUENT RELATIONSHIPS
+
+// one to one relationship
+// Route::get('/user/{id}/post', function($id) {
+//   return User::find($id)->post->content;
+// });
+
+// Route::get('/post/{id}/user', function($id) {
+//   return Post::find($id)->user->name;
+// });
+
+
+
+
+// one to many relationship
+
+// Route::get('/posts', function() {
+//   $user = User::find(1);
+
+//   foreach($user->posts as $post) {
+//     echo $post->title . "<br>";
+//   }
+// });
+
+// many to many relationships
+
+// Route::get('/user/{id}/role', function($id) {
+
+//   $user = User::find($id)->roles()->orderBy('id', 'desc')->get();
+
+//   return $user;
+
+//   // foreach ($user->roles as $role) {
+//   //   return $role->name;
+//   // }
+
+// });
+
+// accessing the pivot table
+
+// Route::get('/user/pivot', function() {
+//   $user = User::find(1);
+
+//   foreach($user->roles as $role) {
+//     return $role->pivot->created_at;
+//   }
+
+// });
+
+// has many through relation
+
+Route::get('/user/country', function() {
+  $country = Country::find(5);
+
+  foreach($country->posts as $post) {
+    echo $post->title . "<br>";
+  }
 });
