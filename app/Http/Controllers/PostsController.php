@@ -16,7 +16,8 @@ class PostsController extends Controller
     public function index()
     {
 
-        $posts = Post::all();
+//        $posts = Post::orderBy('id', 'desc')->get();
+        $posts = Post::latest()->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -39,13 +40,19 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
 
+        $file = $request->file('file');
+        echo "<br>";
+        echo $file->getClientOriginalName();
+        echo "<br>";
+        echo $file->getSize();
+
         // $this->validate($request, [
         //     'title'=>'required',
         // ]);
         // return $request->title;
-        Post::create($request->all());
-
-        return redirect('/posts');
+//        Post::create($request->all());
+//
+//        return redirect('/posts');
 
         // $input = $request->all();
         // $input['title'] = $request->title;
