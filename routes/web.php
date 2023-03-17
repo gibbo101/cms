@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Photo;
 use App\Models\Tag;
 use App\Models\Country;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ use App\Models\Country;
 
 
 
-// Route::get('/', [EdwinsController::class, 'index']); 
+// Route::get('/', [EdwinsController::class, 'index']);
 
 // Route::get('/post/{id}', [PostsController::class, 'index']);
 
@@ -62,7 +63,7 @@ use App\Models\Country;
 
 // Route::get('/read', function() {
 //     $results = DB::select('select * from posts where id = ?', [1]);
-  
+
 //     return var_dump($results);
 
 //     foreach($results as $post) {
@@ -97,7 +98,7 @@ use App\Models\Country;
 //     $post = Post::find(3);
 
 //         return $post->title;
-    
+
 // });
 
 // Route::get('/findwhere', function() {
@@ -256,4 +257,36 @@ use App\Models\Country;
 //// Route::resource('posts', PostsController::class);
 
 
-Route::resource('/posts', PostsController::class);
+
+
+
+Route::middleware(['web'])->group(function() {
+    Route::resource('/posts', PostsController::class);
+
+    Route::get('/dates', function() {
+        $date = new DateTime('+1 week');
+
+        echo $date->format('m-d-Y');
+
+        echo "<br>";
+
+        echo Carbon::now()->addDays(10)->diffForHumans();
+
+        echo "<br>";
+
+        echo Carbon::now()->subMonths(5)->diffForHumans();
+
+        echo "<br>";
+
+        echo Carbon::now()->yesterday()->diffForHumans();
+
+    });
+
+    Route::get('/getname', function() {
+        $user = User::find(1);
+
+        echo $user->name;
+    });
+
+});
+
